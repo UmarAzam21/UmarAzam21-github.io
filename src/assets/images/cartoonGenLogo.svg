@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#f0f4f8" stroke="#d946ef" stroke-width="2"/>
+  
+  <!-- Paintbrush handle -->
+  <rect x="70" y="90" width="12" height="50" rx="4" fill="#8b5a3c"/>
+  
+  <!-- Paintbrush bristles -->
+  <ellipse cx="76" cy="90" rx="12" ry="8" fill="#f472b6"/>
+  
+  <!-- Palette -->
+  <circle cx="120" cy="110" r="25" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  
+  <!-- Paint colors on palette -->
+  <circle cx="105" cy="100" r="6" fill="#ef4444"/>
+  <circle cx="115" cy="95" r="6" fill="#3b82f6"/>
+  <circle cx="125" cy="100" r="6" fill="#10b981"/>
+  <circle cx="130" cy="115" r="6" fill="#f59e0b"/>
+  <circle cx="120" cy="125" r="6" fill="#d946ef"/>
+  
+  <!-- Text style curves (representing text/cartoon text) -->
+  <path d="M 50 140 Q 60 135 70 140" fill="none" stroke="#d946ef" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 130 140 Q 140 135 150 140" fill="none" stroke="#d946ef" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Text -->
+  <text x="100" y="182" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#d946ef">Cartoon Gen</text>
+</svg>

@@ -1,0 +1,369 @@
+@import "../../_globalColor";
+
+.proficiency-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: 4rem;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.proficiency-header {
+  margin-bottom: 3rem;
+  text-align: center;
+  width: 100%;
+
+  .proficiency-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $textColor;
+    margin: 0;
+    letter-spacing: -0.5px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+.proficiency-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  .proficiency-card {
+    background: $lightBackground1;
+    border: 1px solid $lightBorder1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 140px;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+      border-color: $buttonColor;
+    }
+
+    .card-content {
+      margin-bottom: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+
+      .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $textColor;
+        margin: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .proficiency-percentage {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $buttonColor;
+        text-align: left;
+      }
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      background: $progressBarBackground;
+      border-radius: 10px;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, $buttonColor, $buttonHover);
+        border-radius: 10px;
+        transition: width 0.6s ease;
+      }
+    }
+  }
+}
+
+.proficiency-image {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+
+  img {
+    max-width: 100%;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+}
+
+.dark-mode {
+  .proficiency-header {
+    .proficiency-heading {
+      color: $textColorDark;
+    }
+  }
+
+  .proficiency-cards {
+    .proficiency-card {
+      background: $darkBackground;
+      border-color: rgba($textColorDark, 0.1);
+
+      &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        border-color: $buttonColor;
+      }
+
+      .card-content {
+        .card-title {
+          color: $textColorDark;
+        }
+
+        .proficiency-percentage {
+          color: $buttonHover;
+        }
+      }
+
+      .progress-bar {
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+.proficiency-container.dark-mode .proficiency-heading,
+.proficiency-container.dark-mode .card-title {
+  color: $textColorDark !important;
+}
+
+.proficiency-container.dark-mode .proficiency-card {
+  background: $darkBackground;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Mobile First - Base */
+@media (max-width: 480px) {
+  .proficiency-container {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .proficiency-header {
+    margin-bottom: 1.5rem;
+
+    .proficiency-heading {
+      font-size: 1.5rem;
+    }
+  }
+
+  .proficiency-cards {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .proficiency-card {
+    padding: 1.2rem !important;
+
+    .card-content {
+      margin-bottom: 0.8rem;
+
+      .card-title {
+        font-size: 0.95rem;
+      }
+
+      .proficiency-percentage {
+        font-size: 1rem;
+      }
+    }
+
+    .progress-bar {
+      height: 4px;
+    }
+  }
+}
+
+/* Mobile - Medium (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .proficiency-container {
+    width: 100%;
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .proficiency-header {
+    margin-bottom: 2rem;
+
+    .proficiency-heading {
+      font-size: 1.8rem;
+    }
+  }
+
+  .proficiency-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .proficiency-card {
+    padding: 1.5rem !important;
+
+    .card-content {
+      margin-bottom: 1rem;
+
+      .card-title {
+        font-size: 1rem;
+      }
+
+      .proficiency-percentage {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .proficiency-container {
+    width: 100%;
+    padding: 2rem;
+    margin-top: 3rem;
+  }
+
+  .proficiency-header {
+    margin-bottom: 2.5rem;
+
+    .proficiency-heading {
+      font-size: 2rem;
+    }
+  }
+
+  .proficiency-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem;
+  }
+
+  .proficiency-card {
+    padding: 1.5rem !important;
+
+    .card-content {
+      margin-bottom: 1.2rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .card-title {
+        font-size: 1.05rem;
+        flex: 1;
+      }
+
+      .proficiency-percentage {
+        font-size: 1.2rem;
+        text-align: right;
+        min-width: 50px;
+      }
+    }
+  }
+
+  .proficiency-image {
+    display: none;
+  }
+}
+
+/* Desktop - Medium (1025px - 1200px) */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .proficiency-container {
+    width: 95%;
+    padding: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .proficiency-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .proficiency-card {
+    .card-content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .proficiency-percentage {
+        text-align: right;
+        min-width: 60px;
+      }
+    }
+  }
+
+  .proficiency-image {
+    display: none;
+  }
+}
+
+/* Large Desktop (1201px+) */
+@media (min-width: 1201px) {
+  .proficiency-container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+  }
+
+  .proficiency-header {
+    margin-bottom: 3rem;
+
+    .proficiency-heading {
+      font-size: 2.5rem;
+    }
+  }
+
+  .proficiency-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .proficiency-card {
+    padding: 2rem !important;
+    min-height: 150px;
+
+    .card-content {
+      margin-bottom: 1.5rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+
+      .card-title {
+        font-size: 1.1rem;
+        flex: 1;
+      }
+
+      .proficiency-percentage {
+        font-size: 1.2rem;
+        text-align: right;
+        min-width: 60px;
+        flex-shrink: 0;
+      }
+    }
+
+    .progress-bar {
+      height: 6px;
+    }
+  }
+
+  .proficiency-image {
+    display: flex;
+  }
+}

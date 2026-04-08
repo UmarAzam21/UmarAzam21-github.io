@@ -1,0 +1,52 @@
+@import "../../_globalColor";
+
+.footer-div {
+  margin-top: 5rem;
+  padding: 2rem 1rem;
+  background-color: $lightBackground1;
+  border-top: 1px solid $lightBorder1;
+  text-align: center;
+
+  &.dark-mode {
+    background-color: $darkBackground;
+    border-top-color: rgba($textColorDark, 0.1);
+
+    .footer-text {
+      color: $textColorDark !important;
+    }
+  }
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-content {
+  flex: 1;
+
+  .footer-text {
+    font-size: 0.95rem;
+    color: $textColor;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-div {
+    margin-top: 3rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-content {
+    .footer-text {
+      font-size: 0.85rem;
+    }
+  }
+}
