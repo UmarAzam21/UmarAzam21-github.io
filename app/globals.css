@@ -1,26 +1,245 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/* ------------------------------------------------------------------ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+
+  --color-ink: #1c1c1c;          /* headings, dark buttons */
+  --color-ink-muted: #6e6e6c;    /* softer half of headlines */
+  --color-ink-soft: #57575a;     /* body copy, small links */
+
+  --color-surface-base: #e8e8e6; /* page background */
+  --color-surface-hero: #ecebea; /* hero card */
+  --color-surface-band: #f6f6f5; /* logo band + contact card */
+  --color-surface-soft: #f9f9f8; /* light button hover */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface-base);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Paper grain — subtle noise texture over surfaces                   */
+/* ------------------------------------------------------------------ */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Layered so Tailwind utilities (e.g. `absolute`) can still override it. */
+@layer components {
+  .grain > * {
+    position: relative;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Motion                                                             */
+/* ------------------------------------------------------------------ */
+:root {
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Page-load entrance (hero) */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+.reveal {
+  animation: reveal 0.9s var(--ease-out-expo) backwards;
+}
+
+/* Hero headline: words rise out of a soft blur, one after another */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    translate: 0 0.45em;
+  }
+}
+.word {
+  display: inline-block;
+  animation: word-in 1s var(--ease-out-expo) backwards;
+  animation-delay: calc(var(--i) * 75ms + 180ms);
+}
+
+/* Scroll reveal — hidden only when JS runs and motion is welcome */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    filter: blur(6px);
+  }
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal]:not([data-visible]) {
+    opacity: 0;
+  }
+  [data-reveal][data-visible] {
+    animation: reveal-in 1s var(--ease-out-expo) var(--delay, 0ms) backwards;
+  }
+}
+
+/* Ambient hero blobs */
+@keyframes drift-a {
+  50% {
+    transform: translate(18%, 14%) scale(1.15);
+  }
+}
+@keyframes drift-b {
+  50% {
+    transform: translate(-22%, -10%) scale(0.9);
+  }
+}
+@keyframes drift-c {
+  50% {
+    transform: translate(-15%, -18%) scale(1.2);
+  }
+}
+.blob-a {
+  animation: drift-a 18s ease-in-out infinite;
+}
+.blob-b {
+  animation: drift-b 22s ease-in-out infinite;
+}
+.blob-c {
+  animation: drift-c 26s ease-in-out infinite;
+}
+
+/* Gentle float (name badge) */
+@keyframes float {
+  50% {
+    translate: 0 -6px;
+  }
+}
+.float {
+  animation: float 4.5s ease-in-out infinite;
+}
+
+/* Waving hand */
+@keyframes wave {
+  0%, 55%, 100% { rotate: 0deg; }
+  10%, 30% { rotate: 16deg; }
+  20%, 40% { rotate: -8deg; }
+}
+.wave {
+  transform-origin: 70% 80%;
+  animation: wave 3.2s ease-in-out infinite;
+}
+
+/* Handshake */
+@keyframes shake {
+  0%, 70%, 100% { translate: 0 0; rotate: 0deg; }
+  76% { translate: 0 -3px; rotate: -4deg; }
+  82% { translate: 0 2px; rotate: 3deg; }
+  88% { translate: 0 -2px; rotate: -2deg; }
+  94% { translate: 0 1px; rotate: 1deg; }
+}
+.shake {
+  animation: shake 3.6s ease-in-out infinite;
+}
+
+/* Expanding ring */
+@keyframes pulse-ring {
+  from {
+    scale: 1;
+    opacity: 0.9;
+  }
+  to {
+    scale: 1.75;
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  animation: pulse-ring 2.8s var(--ease-out-expo) infinite;
+}
+
+/* Slow spin (avatar ring) */
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+.spin-slow {
+  animation: spin 40s linear infinite;
+}
+
+/* Logo marquee */
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Scroll progress bar (scroll-driven, where supported) */
+.scroll-progress {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  @keyframes progress {
+    from {
+      scale: 0 1;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
+  .scroll-progress {
+    display: block;
+    animation: progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .word,
+  .blob-a,
+  .blob-b,
+  .blob-c,
+  .float,
+  .wave,
+  .shake,
+  .pulse-ring,
+  .spin-slow,
+  .marquee-track {
+    animation: none;
+  }
+  .pulse-ring {
+    opacity: 0;
+  }
 }
